@@ -1,5 +1,11 @@
 <h1>Nova receita</h1>
-
+<% if @recipe.errors.any?%>
+	<ul>
+		<% @recipe.errors.full_messages.each do |error| %>
+		<li><%= error %> </li>
+		<% end %>
+	</ul>
+<% end %>
 <%= form_for(@recipe) do |f|%>
 	<div>
 		<%= f.label :title, 'Título' %>
@@ -11,7 +17,7 @@
 	</div>
 	<div>
 		<%= f.label :cuisine_id, 'Cozinha' %>
-		<%= f.collection_select :cuisine_id, @cuisines, :id, :name %>
+		<%= f.collection_select :cuisine_id, Cuisine.all, :id, :name %>
 	</div>
 	<div>
 		<%= f.label :difficulty, 'Dificuldade' %>

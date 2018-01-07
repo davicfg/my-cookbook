@@ -12,7 +12,15 @@ class RecipesController < ApplicationController
 			:recipe_type, :cuisine_id, :difficulty, 
 			:cook_time, :ingredients, :method )
 		@recipe = Recipe.new(recipe_params)
-		@recipe.save
-		redirect_to @recipe 
+
+		if @recipe.valid?
+			@recipe.save
+			redirect_to @recipe 
+		else
+			render new_recipe_path
+		end
+
+	
+		
 	end
 end

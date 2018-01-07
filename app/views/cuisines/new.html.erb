@@ -2,8 +2,8 @@
 
 <% if @cuisine.errors.any? %>
 	<ul>
-    <% @cuisine.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
+    <% @cuisine.errors.full_messages.each do |error| %>
+      <li><%= error %></li>
     <% end %>
 	</ul>
 <% end %>
@@ -11,7 +11,7 @@
 <%= form_for(@cuisine) do |f| %>
 	<div>
 		<%= f.label :name, 'Nome' %>
-		<%= f.text_field :name%>
+		<%= f.text_field :name, :required => true %>
 	</div>
 	<%= f.submit 'Enviar'%>
 <% end %>
