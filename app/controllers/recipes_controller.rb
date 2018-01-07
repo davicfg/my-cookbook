@@ -3,12 +3,13 @@ class RecipesController < ApplicationController
 		@recipe = Recipe.find(params[:id])
 	end
 	def new
+		@cuisines = Cuisine.all
 		@recipe = Recipe.new 		
 	end
 
 	def create
 		recipe_params = params.require(:recipe).permit(:title, 
-			:recipe_type, :cuisine, :difficulty, 
+			:recipe_type, :cuisine_id, :difficulty, 
 			:cook_time, :ingredients, :method )
 		@recipe = Recipe.new(recipe_params)
 		@recipe.save
