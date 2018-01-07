@@ -27,10 +27,8 @@ ActiveRecord::Schema.define(version: 20180107055715) do
     t.datetime "updated_at", null: false
     t.text "ingredients"
     t.text "method"
-    t.integer "cusine_id"
     t.integer "cuisine_id"
     t.index ["cuisine_id"], name: "index_recipes_on_cuisine_id"
-    t.index ["cusine_id"], name: "index_recipes_on_cusine_id"
   end
 
 end
