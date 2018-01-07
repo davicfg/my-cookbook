@@ -3,6 +3,11 @@
 <p>Bem-vindo ao maior livro de receitas online</p>
 <h2><%= link_to 'Enviar uma receita', new_recipe_path%></h2>
 <hr>
+<h2>Localidade da cozinha</h2>
+<% @cuisines.each do |cuisine| %>
+	<%= link_to(cuisine.name,cuisine) %>
+<% end %>
+
 <% @recipes.each do |recipe| %>
 	 <h1><%= link_to(recipe.title, recipe) %></h1>
 	<ul>
