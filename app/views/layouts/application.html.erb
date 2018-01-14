@@ -9,6 +9,18 @@
   </head>
 
   <body>
+     <nav>
+      <% if user_signed_in? %>
+        <span>Bem-vindo <%= current_user.email %></span>
+        <%= link_to 'Enviar uma receita', new_recipe_path%>
+        <%= link_to "Sair", destroy_user_session_path, method: :delete %>
+      <% else %>
+        <%= link_to 'Entrar', new_user_session_path %>
+      <% end %>
+    </nav>
+
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
     <%= yield %>
   </body>
 </html>
