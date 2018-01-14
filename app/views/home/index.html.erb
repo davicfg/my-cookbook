@@ -2,6 +2,12 @@
 <br>
 <p>Bem-vindo ao maior livro de receitas online</p>
 <h2><%= link_to 'Enviar uma receita', new_recipe_path%></h2>
+<%= form_tag(search_recipes_path, method: 'get') do %>
+	<%= label_tag(:query, "Busca") %>
+	<%= text_field_tag(:query) %>
+	<%= submit_tag("Buscar") %>
+
+<% end %>
 <hr>
 <h2>Localidade da cozinha</h2>
 <% @cuisines.each do |cuisine| %>

@@ -1,0 +1,6 @@
+<h1>Resultado da busca por:</h1>
+<p><%= flash[:notice] %> </p>
+<% @recipes.each do |recipe| %>
+  <h1><%= link_to(recipe.title, recipe) %></h1>
+ <%= render recipe %>
+<% end %>
