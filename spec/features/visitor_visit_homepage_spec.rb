@@ -2,6 +2,9 @@ require 'rails_helper'
 
 feature 'Visitor visit homepage' do
   scenario 'successfully' do
+    user = User.create(email: 'dell@marques.com.br', password: '123456')
+    user.confirmed_at = Time.now
+    login_as(user, :scope => :user)
     visit root_path
 
     expect(page).to have_css('h1', text: 'CookBook')
@@ -16,7 +19,7 @@ feature 'Visitor visit homepage' do
                           cuisine: cuisine, difficulty: 'Médio', 
                           ingredients: 'Cenoura, acucar, oleo e chocolate',
                           method: 'Misturar tudo, bater e assar',
-                          cook_time: 60)
+                          cook_time: 60, user: user)
 
     # simula a ação do usuário
     visit root_path
