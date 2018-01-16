@@ -7,5 +7,6 @@ FactoryBot.define do
     recipe_type 'Sobremesa'
     add_attribute(:method) {'Mistura e tudo e seja feliz'}
     cuisine
+    user
   end
 end

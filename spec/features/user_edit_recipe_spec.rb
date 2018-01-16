@@ -3,6 +3,7 @@ require 'rails_helper'
 feature 'User update recipe' do
   scenario 'successfully' do
     #cria os dados necessários
+    user = create(:user)
     arabian_cuisine = Cuisine.create(name: 'Arabe')
     brazilian_cuisine = Cuisine.create(name: 'Brasileira')
 
@@ -14,9 +15,10 @@ feature 'User update recipe' do
                           cuisine: arabian_cuisine, difficulty: 'Médio',
                           cook_time: 50,
                           ingredients: 'Farinha, açucar, cenoura',
-                          method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes')
+                          method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes', user: user)
 
     # simula a ação do usuário
+    login_as(user, :scope => :user)
     visit root_path
     click_on 'Bolodecenoura'
     click_on 'Editar'
@@ -43,6 +45,7 @@ feature 'User update recipe' do
 
   scenario 'and all fields must be filled' do
     #cria os dados necessários, nesse caso não vamos criar dados no banco
+    user = create(:user)
     arabian_cuisine = Cuisine.create(name: 'Arabe')
     brazilian_cuisine = Cuisine.create(name: 'Brasileira')
 
@@ -54,9 +57,10 @@ feature 'User update recipe' do
                           cuisine: arabian_cuisine, difficulty: 'Médio',
                           cook_time: 50,
                           ingredients: 'Farinha, açucar, cenoura',
-                          method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes')
+                          method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes', user: user)
 
     # simula a ação do usuário
+    login_as(user, :scope => :user)
     visit root_path
     click_on 'Bolodecenoura'
     click_on 'Editar'

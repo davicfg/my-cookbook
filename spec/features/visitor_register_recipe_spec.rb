@@ -3,17 +3,16 @@ require 'rails_helper'
 feature 'Visitor register recipe' do
   scenario 'successfully' do
     #cria os dados necessários
+    user = create(:user)
+
     Cuisine.create(name: 'Arabe')
     RecipeType.create(name: 'Entrada')
     RecipeType.create(name: 'Prato Principal')
     RecipeType.create(name: 'Sobremesa')
     user = User.create(email: 'dell@marques.com.br', password: '123456')
     # simula a ação do usuário
+    login_as(user, :scope => :user)
     visit root_path
-    click_on 'Entrar'
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
-    click_on 'Log in'
     click_on 'Enviar uma receita'
 
     fill_in 'Título', with: 'Tabule'
