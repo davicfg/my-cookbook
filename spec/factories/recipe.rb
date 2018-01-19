@@ -4,7 +4,7 @@ FactoryBot.define do
     difficulty 'Fácil'
     cook_time 60
     ingredients 'Farinha e ovo'
-    recipe_type 'Sobremesa'
+    recipe_type
     add_attribute(:method) {'Mistura e tudo e seja feliz'}
     cuisine
     user

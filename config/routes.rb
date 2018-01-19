@@ -6,6 +6,9 @@ Rails.application.routes.draw do
 		collection do 
 			get 'search'
 		end
+    member do
+      post 'share'
+    end
 	end
 	resources :cuisines, only: [:show, :new, :create]
 	resources :recipe_types, only:[:show,:new, :create]

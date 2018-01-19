@@ -1,5 +1,7 @@
 class RecipesController < ApplicationController
-	# before_action :set_recipe, only: [:show, :edit, :update]
+	before_action :set_recipe, only: [:show, :edit, :update, :favorite, :unfavorite, :share]
+  before_action :set_cuisines, only: [:new, :edit]
+
 	def show
 		@recipe = Recipe.find(params[:id])
 	end
@@ -54,9 +56,29 @@ class RecipesController < ApplicationController
 
 		redirect_to root_path
 	end
+
+	def share 
+		 email = params[:email]
+		 msg = params[:mensagem]
+		 RecipesMailer.share(email, msg,
+                        @recipe.id).deliver_now
+
+		flash[:success] = "Receita enviada para #{email} com sucesso"
+    redirect_to @recipe
+
+	end
+
   private
 
   def recipe_params
     params.require(:recipe).permit(:title, :recipe_type_id, :difficulty, :cuisine_id, :cook_time, :ingredients, :method)
+  end
+
+  def set_recipe
+  	@recipe = Recipe.find(params[:id])
+  end
+
+  def set_cuisines
+  	@cuisines = Cuisine.all
   end
 end
