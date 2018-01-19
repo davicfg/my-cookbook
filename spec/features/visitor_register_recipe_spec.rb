@@ -59,4 +59,17 @@ feature 'Visitor register recipe' do
 
     expect(page).to have_content('Você deve informar todos os dados da receita')
   end
+  scenario 'and must be logged in' do
+    visit root_path
+
+    expect(current_path).to eq(root_path)
+    expect(page).not_to have_link('Enviar uma receita', href: new_recipe_path)
+  end
+  scenario 'and need to be logged in (try vi url)' do
+    visit new_recipe_path
+
+    expect(current_path).to eq(new_user_session_path)
+    # expect(page).to have_content('Você não tem permissão para isso.')
+
+  end
 end

@@ -75,4 +75,24 @@ feature 'User update recipe' do
 
     expect(page).to have_content('Você deve informar todos os dados da receita')
   end
+  scenario 'and must be logged in' do
+    recipe = create(:recipe)
+
+    visit root_path
+
+    click_on recipe.title
+
+    expect(page).not_to have_link('Enviar uma receita', href: edit_recipe_path(recipe))
+  end
+  scenario 'and need to be logged in (try vi url)' do
+    user = create(:user, email: 'i@gmail.com')
+    recipe = create(:recipe)
+    login_as(user, scope: :user)
+
+    visit edit_recipe_path(recipe)
+
+    expect(current_path).to eq(recipe_path(recipe))
+    expect(page).to have_content('Você não tem permissão para isso.')
+
+  end
 end

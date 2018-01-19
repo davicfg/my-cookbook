@@ -1,7 +1,7 @@
 class RecipesController < ApplicationController
 	before_action :set_recipe, only: [:show, :edit, :update, :favorite, :unfavorite, :share]
   before_action :set_cuisines, only: [:new, :edit]
-
+  before_action :authenticate_user!, only: [:create, :edit, :new]
 	def show
 		@recipe = Recipe.find(params[:id])
 	end
@@ -12,7 +12,10 @@ class RecipesController < ApplicationController
 	end
 
 	def create
-		
+    # if !user_signed_in?
+    #   redirect_to root_path, notice: 'Você não tem permissão para isso.'      
+    # end
+  
 		recipe_params = params.require(:recipe).permit(:title, 
 			:recipe_type_id, :cuisine_id, :difficulty, 
 			:cook_time, :ingredients, :method )
@@ -27,6 +30,9 @@ class RecipesController < ApplicationController
 	end
 
 	def edit
+    if @recipe.user != current_user
+        redirect_to recipe_path(@recipe), notice: 'Você não tem permissão para isso.'
+    end
 		@recipe = Recipe.find(params[:id])
 		@recipe_types = RecipeType.all
 		@cuisines = Cuisine.all
